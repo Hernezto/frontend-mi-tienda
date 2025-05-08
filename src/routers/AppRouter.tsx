@@ -7,6 +7,7 @@ import ProductList from "../pages/ProductsList";
 import Login from "../pages/Login";
 import User from "../pages/User";
 import Register from "../pages/Register";
+import SingleItem from "../pages/SingleItem";
 
 export const AppRouter = () => {
   return (
@@ -17,6 +18,7 @@ export const AppRouter = () => {
         <Route path="/post" element={<Post />} />
         <Route path="/query" element={<Query />} />
         <Route path="/productlist" element={<ProductList />} />
+        <Route path="/product/:id" element={<SingleItem />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user" element={<User />} />
         <Route path="/register" element={<Register />} />

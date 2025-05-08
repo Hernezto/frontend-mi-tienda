@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import "./CSS/index.css";
+import Feed from "./components/Feed";
 function App() {
   return (
     <>
@@ -88,6 +89,11 @@ function App() {
             </div>
           </div>
         </section>
+        <div>
+          <h2>Últimos Productos</h2>
+          <p>Descubre los productos más recientes en nuestra tienda.</p>
+          <Feed />
+        </div>
       </main>
 
       <footer>
