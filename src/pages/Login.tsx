@@ -1,7 +1,42 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useState } from "react";
 import "../CSS/login.css";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const apiURL = import.meta.env.VITE_API_URL;
+
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError(""); // Limpiar errores previos
+
+    try {
+      const response = await fetch(`${apiURL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Credenciales inválidas");
+      }
+
+      const data = await response.json();
+      localStorage.setItem("token", data.token); // Almacenar el token en localStorage
+      alert("Inicio de sesión exitoso");
+      navigate("/"); // Redirigir al usuario a la página principal
+    } catch (err: any) {
+      setError(err.message || "Error al iniciar sesión");
+    }
+  };
+
   return (
     <>
       <Link replace to="/" className="home-button">
@@ -25,16 +60,18 @@ const Login = () => {
       <div className="login-container">
         <div className="login-box">
           <h2>Iniciar Sesión</h2>
-          <form id="loginForm">
+          <form id="loginForm" onSubmit={handleLogin}>
             <div className="input-group">
               <label htmlFor="email">Correo electrónico</label>
               <input
                 type="email"
                 id="email"
                 placeholder="ejemplo@correo.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <span className="error-message">Ingrese un correo válido.</span>
+              {error && <span className="error-message">{error}</span>}
             </div>
             <div className="input-group">
               <label htmlFor="password">Contraseña</label>
@@ -43,15 +80,14 @@ const Login = () => {
                   type="password"
                   id="password"
                   placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
                 <button type="button" id="togglePassword">
                   👁️
                 </button>
               </div>
-              <span className="error-message">
-                Ingrese una contraseña válida.
-              </span>
             </div>
             <button type="submit" className="btn">
               Ingresar
@@ -66,8 +102,6 @@ const Login = () => {
           </form>
         </div>
       </div>
-
-      <script src="../JS/login.js"></script>
     </>
   );
 };

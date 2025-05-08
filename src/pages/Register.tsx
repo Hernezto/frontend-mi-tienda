@@ -1,7 +1,49 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useState } from "react";
 import "../CSS/register.css";
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const apiURL = import.meta.env.VITE_API_URL;
+
+  const handleRegister = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError(""); // Limpiar errores previos
+
+    if (password !== confirmPassword) {
+      setError("Las contraseñas no coinciden.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${apiURL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al registrar usuario");
+      }
+
+      const data = await response.json();
+      localStorage.setItem("token", data.token); // Almacenar el token en localStorage
+      alert("Registro exitoso");
+      navigate("/"); // Redirigir al usuario a la página principal
+    } catch (err: any) {
+      setError(err.message || "Error al registrar usuario");
+    }
+  };
+
   return (
     <>
       <Link replace to="/" className="home-button">
@@ -24,16 +66,18 @@ const Register = () => {
       <div className="login-container">
         <div className="login-box">
           <h2>Crear Cuenta</h2>
-          <form id="registerForm">
+          <form id="registerForm" onSubmit={handleRegister}>
             <div className="input-group">
               <label htmlFor="nombre">Nombre completo</label>
               <input
                 type="text"
                 id="nombre"
                 placeholder="Juan Pérez"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 required
               />
-              <span className="error-message">Ingrese su nombre completo.</span>
+              {error && <span className="error-message">{error}</span>}
             </div>
             <div className="input-group">
               <label htmlFor="email">Correo electrónico</label>
@@ -41,9 +85,10 @@ const Register = () => {
                 type="email"
                 id="email"
                 placeholder="ejemplo@correo.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <span className="error-message">Ingrese un correo válido.</span>
             </div>
             <div className="input-group">
               <label htmlFor="password">Contraseña</label>
@@ -52,15 +97,14 @@ const Register = () => {
                   type="password"
                   id="password"
                   placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
                 <button type="button" id="togglePassword">
                   👁️
                 </button>
               </div>
-              <span className="error-message">
-                La contraseña debe tener al menos 6 caracteres.
-              </span>
             </div>
             <div className="input-group">
               <label htmlFor="confirmPassword">Confirmar Contraseña</label>
@@ -69,15 +113,14 @@ const Register = () => {
                   type="password"
                   id="confirmPassword"
                   placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                 />
                 <button type="button" id="toggleConfirmPassword">
                   👁️
                 </button>
               </div>
-              <span className="error-message">
-                Las contraseñas no coinciden.
-              </span>
             </div>
             <button type="submit" className="btn">
               Registrarse
@@ -91,8 +134,6 @@ const Register = () => {
           </form>
         </div>
       </div>
-
-      <script src="../JS/register.js"></script>
     </>
   );
 };

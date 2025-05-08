@@ -1,10 +1,60 @@
 import { Link } from "react-router";
+import { useState } from "react";
+
 import "../CSS/formularios.css";
 
 const Post = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    image: "",
+  });
+  const handleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = event.target;
+    setFormData((prevData: any) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setFormData((prevData: any) => ({
+        ...prevData,
+        imagen: file,
+      }));
+    }
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    for (let data in formData) {
+      const key = data as keyof typeof formData;
+      setFormData((prevData) => ({
+        ...prevData,
+        [key]: formData[key].trim(),
+      }));
+
+      if (
+        formData[key] === "" ||
+        formData[key] === undefined ||
+        (typeof formData[key] === "number" && formData[key] === 0)
+      ) {
+        alert("Por favor, complete todos los campos.");
+        return;
+      }
+    }
+
+    // Logica para manejar el submit yo recomiendo para la gestion de estados mas adelante si prograsa usar tanstack react query
+  };
   return (
     <>
-      {" "}
       <Link replace to="/" className="home-button">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -28,22 +78,49 @@ const Post = () => {
         <form id="productForm">
           <div className="input-group">
             <label htmlFor="nombre">Nombre del Producto</label>
-            <input type="text" id="nombre" required />
+            <input
+              value={formData["name"]}
+              onChange={handleChange}
+              type="text"
+              id="nombre"
+              name="name" // Asegúrate de agregar el atributo "name" para que coincida con el estado
+              required
+            />
           </div>
 
           <div className="input-group">
             <label htmlFor="descripcion">Descripción</label>
-            <textarea id="descripcion" rows={3} required></textarea>
+            <textarea
+              value={formData["description"]}
+              onChange={handleChange}
+              id="description"
+              rows={3}
+              required
+            ></textarea>
           </div>
 
           <div className="input-group">
             <label htmlFor="precio">Precio ($)</label>
-            <input type="number" id="precio" min="0" required />
+            <input
+              value={formData["price"]}
+              onChange={handleChange}
+              type="number"
+              id="price"
+              min={0}
+              maxLength={6}
+              required
+            />
           </div>
 
           <div className="input-group">
             <label htmlFor="categoria">Categoría</label>
-            <select id="categoria" required>
+            <select
+              value={formData["category"]}
+              onChange={handleChange}
+              id="categoria"
+              name="category"
+              required
+            >
               <option value="">Seleccione...</option>
               <option value="juguetes">Juguetes</option>
               <option value="electronica">Electrónica</option>
@@ -54,15 +131,20 @@ const Post = () => {
 
           <div className="input-group">
             <label htmlFor="imagen">Imagen del Producto</label>
-            <input type="file" id="imagen" accept="image/*" />
+            <input
+              value={formData["image"]}
+              onChange={handleFileChange}
+              type="file"
+              id="image"
+              accept="image/*"
+            />
           </div>
 
-          <button type="submit" className="btn">
+          <button type="submit" onClick={handleSubmit} className="btn">
             Publicar
           </button>
         </form>
       </div>
-      <script src="../JS/formularios.js"></script>
     </>
   );
 };
