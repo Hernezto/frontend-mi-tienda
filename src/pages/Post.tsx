@@ -8,7 +8,7 @@ const Post = () => {
     name: "",
     description: "",
     price: "",
-    category: "",
+    type: "",
     image: "",
   });
   const handleChange = (
@@ -24,35 +24,80 @@ const Post = () => {
   };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      setFormData((prevData: any) => ({
-        ...prevData,
-        imagen: file,
-      }));
-    }
+    setFormData((prevData: any) => ({
+      ...prevData,
+      image: file || "", // Allow empty string if no file is selected
+    }));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    for (let data in formData) {
-      const key = data as keyof typeof formData;
-      setFormData((prevData) => ({
-        ...prevData,
-        [key]: formData[key].trim(),
-      }));
 
-      if (
-        formData[key] === "" ||
-        formData[key] === undefined ||
-        (typeof formData[key] === "number" && formData[key] === 0)
-      ) {
-        alert("Por favor, complete todos los campos.");
-        return;
-      }
+    // Validate required fields
+    if (!formData.name.trim()) {
+      alert("El campo 'Nombre' es obligatorio.");
+      return;
+    }
+    if (!formData.description.trim()) {
+      alert("El campo 'Descripción' es obligatorio.");
+      return;
+    }
+    if (!formData.price || isNaN(parseFloat(formData.price))) {
+      alert("El campo 'Precio' debe ser un número válido.");
+      return;
+    }
+    if (!formData.type.trim()) {
+      alert("El campo 'Categoría' es obligatorio.");
+      return;
     }
 
-    // Logica para manejar el submit yo recomiendo para la gestion de estados mas adelante si prograsa usar tanstack react query
+    try {
+      const apiURL = import.meta.env.VITE_API_URL;
+
+      // Prepare JSON payload
+      const payload = {
+        name: formData.name.trim(),
+        description: formData.description.trim(),
+        price: parseFloat(formData.price).toFixed(2), // Ensure price is a valid number
+        type: formData.type.trim(),
+        image: formData.image || null, // Send null if no image is provided
+        inStock: true, // Default value for inStock
+      };
+
+      console.log("Payload:", payload); // Debugging
+
+      const response = await fetch(`${apiURL}/product`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      console.log("Response status:", response.status);
+      const responseData = await response.json();
+      console.log("Response data:", responseData);
+
+      if (!response.ok) {
+        throw new Error(
+          responseData.message || "Error al enviar el formulario"
+        );
+      }
+
+      alert("Producto publicado exitosamente");
+      setFormData({
+        name: "",
+        description: "",
+        price: "",
+        type: "",
+        image: "",
+      }); // Reset form
+    } catch (error) {
+      console.error("Error al enviar el formulario:", error);
+      alert("Hubo un problema al publicar el producto. Inténtelo de nuevo.");
+    }
   };
+
   return (
     <>
       <Link replace to="/" className="home-button">
@@ -93,6 +138,7 @@ const Post = () => {
             <textarea
               value={formData["description"]}
               onChange={handleChange}
+              name="description"
               id="description"
               rows={3}
               required
@@ -104,6 +150,7 @@ const Post = () => {
             <input
               value={formData["price"]}
               onChange={handleChange}
+              name="price"
               type="number"
               id="price"
               min={0}
@@ -115,10 +162,10 @@ const Post = () => {
           <div className="input-group">
             <label htmlFor="categoria">Categoría</label>
             <select
-              value={formData["category"]}
+              value={formData["type"]}
               onChange={handleChange}
               id="categoria"
-              name="category"
+              name="type"
               required
             >
               <option value="">Seleccione...</option>
