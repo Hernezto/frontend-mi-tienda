@@ -58,7 +58,12 @@ const Feed = () => {
   return (
     <>
       {data.productlist.map((item, index) => (
-        <Link replace to={`/product/${item.id}`} className="card-link">
+        <Link
+          replace
+          to={`/product/${item.id}`}
+          key={index}
+          className="card-link"
+        >
           <div key={index} className="card">
             <h3 className="card-title">{item.name}</h3>
             <p className="card-description">Descripción: {item.description}</p>
