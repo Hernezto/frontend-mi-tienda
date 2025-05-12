@@ -29,7 +29,7 @@ const Login = () => {
       }
 
       const data = await response.json();
-      localStorage.setItem("token", data.token); // Almacenar el token en localStorage
+      localStorage.setItem("Authorization", data.token); // Almacenar el token en localStorage
       alert("Inicio de sesión exitoso");
       navigate("/"); // Redirigir al usuario a la página principal
     } catch (err: any) {

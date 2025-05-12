@@ -90,18 +90,16 @@ const SingleItem = () => {
           textAlign: "center",
         }}
       >
-        {data.image && ( // Render the image only if it exists
-          <img
-            src={data.image}
-            alt={data.name}
-            style={{
-              width: "100%",
-              height: "auto",
-              borderRadius: "8px",
-              marginBottom: "20px",
-            }}
-          />
-        )}
+        <img
+          src={data.image}
+          alt={data.name}
+          style={{
+            width: "100%",
+            height: "auto",
+            borderRadius: "8px",
+            marginBottom: "20px",
+          }}
+        />
         <h1 style={{ fontSize: "24px", marginBottom: "10px" }}>{data.name}</h1>
         <p style={{ fontSize: "16px", color: "#555", marginBottom: "20px" }}>
           {data.description}
