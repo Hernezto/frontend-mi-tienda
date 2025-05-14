@@ -3,9 +3,11 @@ import "./CSS/index.css";
 import Feed from "./components/Feed";
 import { useAuth } from "./hooks/useAuth";
 import PrettyText from "./components/PrettyText";
-import { Header } from "./components/Header";
+import Header from "./components/Header";
 function App() {
-  const { isValid, isLoading, error } = useAuth();
+  const { isValid, isLoading, error, token } = useAuth();
+  const user = token ? token.toString().split("@")[0] : null;
+  console.log(user);
   if (isLoading) {
     return <PrettyText>Loading...</PrettyText>;
   }
@@ -14,8 +16,7 @@ function App() {
   }
   return (
     <>
-      {!isValid && <Header />}
-
+      {!isValid ? <Header logged={null} /> : <Header logged={user} />}
       <main>
         <section className="welcome-banner">
           <h1>Bienvenido a MiTienda</h1>
