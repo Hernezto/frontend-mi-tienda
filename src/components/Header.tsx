@@ -63,10 +63,12 @@ const Header = ({ logged = null }: { logged: string | null }) => {
           <button
             style={{
               all: "unset",
-              userSelect: "all",
+              userSelect: "none",
               cursor: "pointer",
             }}
-            onClick={() => localStorage.removeItem("Authorization")}
+            onClick={() => {
+              localStorage.removeItem("Authorization"), location.reload();
+            }}
           >
             Cerrar Sesión
           </button>
