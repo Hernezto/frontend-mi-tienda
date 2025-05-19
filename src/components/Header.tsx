@@ -1,7 +1,6 @@
 import { Link } from "react-router";
 
 const Header = ({ logged = null }: { logged: string | null }) => {
-  console.log(logged);
   if (logged === null) {
     return (
       <header>
@@ -33,11 +32,6 @@ const Header = ({ logged = null }: { logged: string | null }) => {
             <li>
               <Link replace to="/filter">
                 Busqueda Avanzada
-              </Link>
-            </li>
-            <li>
-              <Link replace to="/post">
-                Publicar Producto
               </Link>
             </li>
             <li>

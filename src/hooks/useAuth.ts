@@ -3,12 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 interface AuthData {
   isValid: boolean | null;
   token: string | null;
+  role: string | null;
 }
 const apiURL = import.meta.env.VITE_API_URL;
 
 const fetchAuthStatus = async (token: string | null): Promise<AuthData> => {
   if (!token) {
-    return { isValid: false, token: null };
+    return { isValid: false, token: null, role: null };
   }
 
   try {
@@ -21,15 +22,19 @@ const fetchAuthStatus = async (token: string | null): Promise<AuthData> => {
 
     if (!response.ok) {
       localStorage.removeItem("Authorization");
-      return { isValid: false, token: null };
+      return { isValid: false, token: null, role: null };
     }
 
     const data = await response.json();
     console.log(data);
-    return { isValid: data.valid ?? false, token: data.token ?? null };
+    return {
+      isValid: data.valid ?? false,
+      token: data.token ?? null,
+      role: data.role ?? null,
+    };
   } catch (error) {
     console.error("Error during authentication:", error);
-    return { isValid: false, token: null };
+    return { isValid: false, token: null, role: null };
   }
 };
 
@@ -49,5 +54,6 @@ export const useAuth = () => {
     isValid: data?.isValid ?? null,
     isLoading,
     error,
+    role: data?.role ?? null,
   };
 };

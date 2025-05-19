@@ -4,15 +4,24 @@ import Feed from "./components/Feed";
 import { useAuth } from "./hooks/useAuth";
 import PrettyText from "./components/PrettyText";
 import Header from "./components/Header";
+import { AdminMain } from "./pages/AdminMain";
+import { AdminHeader } from "./pages/AdminHeader";
 function App() {
-  const { isValid, isLoading, error, token } = useAuth();
+  const { isValid, isLoading, error, token, role } = useAuth();
   const user = token ? token.toString().split("@")[0] : null;
-  console.log(user);
   if (isLoading) {
     return <PrettyText>Loading...</PrettyText>;
   }
   if (error) {
     return <PrettyText>Error: {error.message}</PrettyText>;
+  }
+  if (role === "admin") {
+    return (
+      <>
+        <AdminHeader />
+        <AdminMain />
+      </>
+    );
   }
   return (
     <>
