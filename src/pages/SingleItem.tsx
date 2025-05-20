@@ -52,19 +52,8 @@ const SingleItem = () => {
       </div>
     );
   }
-
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        padding: "20px",
-        backgroundColor: "#f9f9f9",
-      }}
-    >
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
       <Link
         replace
         to="/"
@@ -79,39 +68,18 @@ const SingleItem = () => {
       >
         ← Back
       </Link>
-      <div
-        style={{
-          maxWidth: "600px",
-          width: "100%",
-          backgroundColor: "#fff",
-          borderRadius: "8px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          padding: "20px",
-          textAlign: "center",
-        }}
-      >
+      <div className="bg-white shadow-md rounded-lg p-6 max-w-lg w-full text-center">
         <img
           src={data.image}
           alt={data.name}
-          style={{
-            width: "100%",
-            height: "auto",
-            borderRadius: "8px",
-            marginBottom: "20px",
-          }}
+          className="w-full h-auto rounded-md mb-6"
         />
-        <h1 style={{ fontSize: "24px", marginBottom: "10px" }}>{data.name}</h1>
-        <p style={{ fontSize: "16px", color: "#555", marginBottom: "20px" }}>
-          {data.description}
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">{data.name}</h1>
+        <p className="text-gray-600 text-base mb-6">{data.description}</p>
+        <p className="text-lg font-semibold text-gray-800 mb-2">
+          Precio: ${data.price}
         </p>
-        <p
-          style={{ fontSize: "18px", fontWeight: "bold", marginBottom: "10px" }}
-        >
-          Price: ${data.price}
-        </p>
-        <p style={{ fontSize: "16px", color: "#777" }}>
-          Category: {data.category}
-        </p>
+        <p className="text-sm text-gray-500">Categoría: {data.category}</p>
       </div>
     </div>
   );
