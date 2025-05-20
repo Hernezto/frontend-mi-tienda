@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import PrettyText from "./PrettyText";
-import { Link } from "react-router";
+import { Product } from "./Product";
 
 interface Product {
   id: string;
@@ -56,21 +56,11 @@ const Feed = () => {
   }
   console.log(data);
   return (
-    <>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {data.productlist.map((item, index) => (
-        <Link
-          replace
-          to={`/product/${item.id}`}
-          key={index}
-          className="card-link"
-        >
-          <div key={index} className="card">
-            <h3 className="card-title">{item.name}</h3>
-            <p className="card-description">Descripción: {item.description}</p>
-          </div>
-        </Link>
+        <Product item={item} index={index} />
       ))}
-    </>
+    </div>
   );
 };
 export default Feed;

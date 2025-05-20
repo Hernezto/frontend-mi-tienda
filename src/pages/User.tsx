@@ -1,95 +1,88 @@
 import { Link } from "react-router";
-import "../CSS/index.css";
 
 const User = () => {
   return (
     <>
-      <header>
-        <div className="top-bar">
-          <div className="logo">
-            <Link replace to="/user">
+      {/* Header */}
+      <header className="bg-walmart-blue text-white shadow-md">
+        <div className="container mx-auto flex items-center justify-between p-4">
+          {/* Logo */}
+          <div className="logo text-2xl font-bold">
+            <Link replace to="/user" className="hover:text-walmart-yellow">
               MiTienda
             </Link>
           </div>
 
-          {/* <!-- Icono de Carrito --> */}
-          <div className="cart-icon" /* onClick={goToOrders()} */>🛒</div>
-        </div>
-
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Busca productos, marcas o tiendas..."
-          />
-          <button>Buscar</button>
-        </div>
-        <div className="categories-nav">
-          <ul>
-            <li>
-              <Link replace to="/filter">
-                Busqueda Avanzada
-              </Link>
-            </li>
-            <li>
-              <Link replace to="/post">
-                Publicar Producto
-              </Link>
-            </li>
-            <li>
-              <Link replace to="/query">
-                Soporte y Ayuda
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </header>
-
-      <main>
-        <section className="welcome-banner">
-          <h1>Bienvenido a MiTienda</h1>
-          <p>
-            ¡Descubre una amplia variedad de productos a los mejores precios!
-          </p>
-          <Link replace to="/productlist" className="cta-button">
-            Explorar Productos
-          </Link>
-        </section>
-
-        <section className="featured-categories">
-          <h2>Categorías</h2>
-          <div className="category-grid">
-            <div className="category-item">
-              <img src="../img/elec.jpg" alt="Categoría 1" />
-              <Link replace to="#">
-                Electrónica
-              </Link>
-            </div>
-            <div className="category-item">
-              <img src="../img/ropa.jpg" alt="Categoría 2" />
-              <Link replace to="#">
-                Moda
-              </Link>
-            </div>
-            <div className="category-item">
-              <img src="../img/hogar.jpg" alt="Categoría 3" />
-              <Link replace to="#">
-                Hogar y Jardín
-              </Link>
-            </div>
-            <div className="category-item">
-              <img src="../img/jug.jpg" alt="Categoría 4" />
-              <Link replace to="#">
-                Juguetes
-              </Link>
-            </div>
+          {/* Icono de Carrito */}
+          <div
+            className="cart-icon text-2xl cursor-pointer hover:text-walmart-yellow"
+            onClick={() => {
+              // Aquí puedes agregar la lógica para ir al carrito
+              console.log("Ir al carrito");
+            }}
+          >
+            🛒
           </div>
-        </section>
-      </main>
+        </div>
 
-      <footer>
-        <p>&copy; 2025 Mi Tienda Online. Todos los derechos reservados.</p>
-      </footer>
-      <script src="../JS/pedidos.js"></script>
+        {/* Barra de Búsqueda */}
+        <div className="bg-white py-2">
+          <div className="container mx-auto flex items-center gap-4">
+            <input
+              type="text"
+              placeholder="Busca productos, marcas o tiendas..."
+              className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-walmart-blue"
+            />
+            <button className="bg-walmart-yellow text-walmart-blue font-semibold px-4 py-2 rounded-md hover:bg-yellow-500">
+              Buscar
+            </button>
+          </div>
+        </div>
+
+        {/* Navegación de Categorías */}
+        <nav className="bg-walmart-yellow py-2">
+          <div className="container mx-auto">
+            <ul className="flex items-center justify-center gap-6 text-sm font-semibold text-walmart-blue">
+              <li>
+                <Link
+                  replace
+                  to="/electronics"
+                  className="hover:text-blue-700 hover:underline"
+                >
+                  Electrónica
+                </Link>
+              </li>
+              <li>
+                <Link
+                  replace
+                  to="/fashion"
+                  className="hover:text-blue-700 hover:underline"
+                >
+                  Moda
+                </Link>
+              </li>
+              <li>
+                <Link
+                  replace
+                  to="/home-garden"
+                  className="hover:text-blue-700 hover:underline"
+                >
+                  Hogar y Jardín
+                </Link>
+              </li>
+              <li>
+                <Link
+                  replace
+                  to="/toys"
+                  className="hover:text-blue-700 hover:underline"
+                >
+                  Juguetes
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
     </>
   );
 };
