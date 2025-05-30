@@ -1,7 +1,6 @@
-import { Link } from "react-router";
-import Feed from "../components/Feed";
+import Feed from "../components/client/Feed";
 import { motion } from "framer-motion";
-import Category from "../components/Category";
+import Category from "../components/client/Category";
 const HomeView = () => {
   return (
     <>
@@ -14,27 +13,26 @@ const HomeView = () => {
           <p className="text-lg text-gray-700 mt-2">
             ¡Descubre una amplia variedad de productos a los mejores precios!
           </p>
-          <motion.div
-            initial={{ scale: 1 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            animate={{
-              scale: 1.15,
-              transition: {
-                duration: 2,
-                repeat: Infinity,
-                repeatType: "mirror",
-              },
-            }}
+          <a
+            href="#feed"
+            className="mt-4 inline-block bg-walmart-blue text-walmart-white font-semibold py-2 px-4 rounded hover:bg-walmart-blue-dark"
           >
-            <Link
-              replace
-              to="/productlist"
-              className="mt-4 inline-block bg-walmart-blue text-walmart-white font-semibold py-2 px-4 rounded hover:bg-walmart-blue-dark"
+            <motion.div
+              initial={{ scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{
+                scale: 1.15,
+                transition: {
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "mirror",
+                },
+              }}
             >
               Explorar Productos
-            </Link>
-          </motion.div>
+            </motion.div>
+          </a>
         </section>
 
         {/* Featured Categories */}
@@ -43,15 +41,23 @@ const HomeView = () => {
             Categorías
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Category name="Electrónica" img="/assets/img/elec.jpg" />
-            <Category name="Moda" img="/assets/img/ropa.jpg" />
-            <Category name="Hogar" img="/assets/img/hogar.jpg" />
-            <Category name="Juguetes" img="/assets/img/jug.jpg" />
+            <Category
+              link="electronica"
+              name="Electrónica"
+              img="/assets/img/elec.jpg"
+            />
+            <Category link="moda" name="Moda" img="/assets/img/ropa.jpg" />
+            <Category link="hogar" name="Hogar" img="/assets/img/hogar.jpg" />
+            <Category
+              link="juguetes"
+              name="Juguetes"
+              img="/assets/img/jug.jpg"
+            />
           </div>
         </section>
 
         {/* Latest Products */}
-        <div className="mt-8">
+        <div className="mt-8" id="feed">
           <h2 className="text-2xl font-bold text-walmart-blue mb-4">
             Últimos Productos
           </h2>

@@ -1,10 +1,10 @@
 import { useAuth } from "./hooks/useAuth";
-import PrettyText from "./components/PrettyText";
-import Header from "./components/Header";
+import PrettyText from "./components/ui/PrettyText";
+import Header from "./components/client/Header";
 import HomeView from "./pages/HomeView";
-import Footer from "./components/Footer";
+import Footer from "./components/client/Footer";
 
-import AdminHeader from "./pages/AdminHeader";
+import AdminHeader from "./components/admin/AdminHeader";
 import AdminMain from "./pages/AdminMain";
 
 import "./App.css";

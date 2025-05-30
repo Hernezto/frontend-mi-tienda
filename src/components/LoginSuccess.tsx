@@ -1,5 +1,3 @@
-import "src/CSS/bienvenida.css";
-
 export const LoginSuccess = () => {
   return (
     <>

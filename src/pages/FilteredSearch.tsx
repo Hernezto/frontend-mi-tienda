@@ -1,40 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 
-/* const products = [
-  {
-    id: 1,
-    name: "Smartphone",
-    price: 500,
-    image: "/assets/img/smartphone.jpg",
-  },
-  {
-    id: 2,
-    name: "Laptop",
-    price: 1200,
-    image: "/assets/img/laptop.jpg",
-  },
-  {
-    id: 3,
-    name: "Auriculares",
-    price: 150,
-    image: "/assets/img/headphones.jpg",
-  },
-  {
-    id: 4,
-    name: "Cámara",
-    price: 800,
-    image: "/assets/img/camera.jpg",
-  },
-]; */
+const FilteredSearch = () => {
+  interface Product {
+    id: number;
+    name: string;
+    price: number;
+    image: string;
+  }
 
-const ProductsList = () => {
-  const [data, setData] = useState<{ products: any[] }>({ products: [] });
+  const [data, setData] = useState<Product[]>([]);
   const location = useLocation();
-  const type = location.state.type;
+  const name = location.state.name;
 
   useEffect(() => {
-    fetch(`http://localhost:3000/product/type/${type}`)
+    fetch(`http://localhost:3000/product/search/${name}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error en la respuesta: " + response.status);
@@ -44,7 +24,7 @@ const ProductsList = () => {
       .then((data) => {
         console.log("Datos recibidos:", data);
         console.log(data);
-        setData({ products: data }); // Asegurarse de que los datos tengan la estructura esperada
+        setData(data); // Asegurarse de que los datos tengan la estructura esperada
       })
       .catch((error) => {
         console.error("Error al hacer fetch:", error);
@@ -84,7 +64,7 @@ const ProductsList = () => {
 
       {/* Listado de Productos */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {data.products.map((product) => (
+        {data.map((product) => (
           <div
             key={product.id}
             className=" bg-white shadow-md rounded-lg p-4 text-center"
@@ -110,4 +90,4 @@ const ProductsList = () => {
   );
 };
 
-export default ProductsList;
+export default FilteredSearch;

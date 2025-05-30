@@ -25,20 +25,6 @@ const AdminHeader = () => {
           </button>
         </div>
       </div>
-
-      {/* Barra de Búsqueda */}
-      <div className="bg-white py-2">
-        <div className="container mx-auto flex items-center gap-4">
-          <input
-            type="text"
-            placeholder="Busca productos, marcas o tiendas..."
-            className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-walmart-blue"
-          />
-          <button className="bg-walmart-yellow text-walmart-blue font-semibold px-4 py-2 rounded-md hover:bg-yellow-500">
-            Buscar
-          </button>
-        </div>
-      </div>
     </header>
   );
 };

@@ -6,7 +6,7 @@ interface Product {
   name: string;
   description: string;
   price: string;
-  category: string;
+  type: string;
   image: string;
 }
 
@@ -79,7 +79,7 @@ const SingleItem = () => {
         <p className="text-lg font-semibold text-gray-800 mb-2">
           Precio: ${data.price}
         </p>
-        <p className="text-sm text-gray-500">Categoría: {data.category}</p>
+        <p className="text-sm text-gray-500">Categoría: {data.type}</p>
       </div>
     </div>
   );

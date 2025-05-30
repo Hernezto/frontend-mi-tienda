@@ -20,6 +20,20 @@ const AdminMain = () => {
           <div className="action-item bg-white shadow-md rounded-lg p-4 text-center">
             <img
               src="/assets/img/products.jpg"
+              alt="Añadir Producto"
+              className="w-full h-32 object-cover rounded-md mb-4"
+            />
+            <Link
+              replace
+              to="/admin/add"
+              className="text-walmart-blue font-semibold hover:underline"
+            >
+              Añadir Producto
+            </Link>
+          </div>
+          <div className="action-item bg-white shadow-md rounded-lg p-4 text-center">
+            <img
+              src="/assets/img/products.jpg"
               alt="Gestionar Productos"
               className="w-full h-32 object-cover rounded-md mb-4"
             />
@@ -57,20 +71,6 @@ const AdminMain = () => {
               className="text-walmart-blue font-semibold hover:underline"
             >
               Gestionar Usuarios
-            </Link>
-          </div>
-          <div className="action-item bg-white shadow-md rounded-lg p-4 text-center">
-            <img
-              src="/assets/img/reports.jpg"
-              alt="Ver Reportes"
-              className="w-full h-32 object-cover rounded-md mb-4"
-            />
-            <Link
-              replace
-              to="/admin/reports"
-              className="text-walmart-blue font-semibold hover:underline"
-            >
-              Ver Reportes
             </Link>
           </div>
         </div>

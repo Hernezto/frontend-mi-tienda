@@ -1,13 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import App from "../App";
 import Filter from "../pages/Filter";
-import Post from "../pages/Post";
+import Post from "../components/admin/Post";
 import Query from "../pages/Query";
 import ProductList from "../pages/ProductsList";
 import Login from "../pages/Login";
 import User from "../pages/User";
 import Register from "../pages/Register";
 import SingleItem from "../pages/SingleItem";
+import FilteredSearch from "../pages/FilteredSearch";
 
 export const AppRouter = () => {
   return (
@@ -15,9 +16,10 @@ export const AppRouter = () => {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/filter" element={<Filter />} />
-        <Route path="/post" element={<Post />} />
+        <Route path="/admin/add" element={<Post />} />
         <Route path="/query" element={<Query />} />
-        <Route path="/productlist" element={<ProductList />} />
+        <Route path="/productlist/:type" element={<ProductList />} />
+        <Route path="/result/:name" element={<FilteredSearch />} />
         <Route path="/product/:id" element={<SingleItem />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user" element={<User />} />

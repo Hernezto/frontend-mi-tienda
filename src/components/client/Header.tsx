@@ -106,13 +106,29 @@ const Header = ({ logged = null }: { logged: string | null }) => {
             value={inputValue}
             className="flex-grow px-4 py-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-walmart-blue"
           />
-          <motion.button
-            className="bg-walmart-yellow text-walmart-blue font-semibold px-4 py-2 rounded-md hover:bg-yellow-500"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Buscar
-          </motion.button>
+          {inputValue != "" ? (
+            <Link
+              replace
+              state={{ name: inputValue }}
+              to={`/result/${inputValue}`}
+            >
+              <motion.button
+                className="bg-walmart-yellow text-walmart-blue font-semibold px-4 py-2 rounded-md hover:bg-yellow-500"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Buscar
+              </motion.button>
+            </Link>
+          ) : (
+            <motion.button
+              className="bg-gray-200 text-walmart-blue font-semibold px-4 py-2 rounded-md hover:bg-red-500"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Buscar
+            </motion.button>
+          )}
         </div>
       </div>
 
@@ -121,14 +137,14 @@ const Header = ({ logged = null }: { logged: string | null }) => {
         <div className="container mx-auto">
           <ul className="flex items-center justify-center gap-6 text-sm font-semibold text-walmart-blue">
             <li>
-              <motion.button
+              {/* <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Link replace to="/filter" className="hover:text-blue-700 ">
                   Búsqueda Avanzada
                 </Link>
-              </motion.button>
+              </motion.button> */}
             </li>
             <li>
               <motion.button

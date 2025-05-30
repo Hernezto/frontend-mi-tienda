@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import PrettyText from "./PrettyText";
-import { Product } from "./Product";
+import PrettyText from "../ui/PrettyText";
+import { Product } from "../ui/Product";
 
 interface Product {
   id: string;
