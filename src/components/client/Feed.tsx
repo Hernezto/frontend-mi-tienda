@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import PrettyText from "../ui/PrettyText";
 import { Product } from "../ui/Product";
+import { Toaster } from "sonner";
 
 interface Product {
   id: string;
@@ -60,6 +61,7 @@ const Feed = () => {
       {data.productlist.map((item, index) => (
         <Product item={item} index={index} />
       ))}
+      <Toaster/>
     </div>
   );
 };
