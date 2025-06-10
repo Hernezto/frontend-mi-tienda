@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 export const Product = ({ item, index }: { item: any; index: number }) => {
   return (
@@ -43,7 +44,7 @@ export const Product = ({ item, index }: { item: any; index: number }) => {
       </Link>
       <button
         className="mt-3 w-full bg-walmart-blue text-white py-2 rounded hover:bg-blue-800 transition"
-        onClick={() => alert(`Has comprado: ${item.name}`)}
+        onClick={() => toast(`Has comprado: ${item.name}`)}
       >
         Comprar
       </button>
